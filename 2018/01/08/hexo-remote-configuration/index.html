@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="SR-C">
 <meta property="og:description" content="想要多设备配置hexo，中间遇到了几个坑，记录下来，也帮助大家。 背景介绍 hexo会将个人写的文章经过编译在public/.deploy_git文件夹中，然后将编译好的静态站点文件上传到github。因此，github中默认只存在已编译好的静态站点文件，不存在hexo编译环境，使得作者不能够直接在异地发布文章。  中心思想 在github库中另建立一个分支用于存储hexo的编译环境。作者在异地先">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-23T05:07:54.617Z">
+<meta property="og:updated_time" content="2018-06-23T07:17:33.194Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo的多端配置">
 <meta name="twitter:description" content="想要多设备配置hexo，中间遇到了几个坑，记录下来，也帮助大家。 背景介绍 hexo会将个人写的文章经过编译在public/.deploy_git文件夹中，然后将编译好的静态站点文件上传到github。因此，github中默认只存在已编译好的静态站点文件，不存在hexo编译环境，使得作者不能够直接在异地发布文章。  中心思想 在github库中另建立一个分支用于存储hexo的编译环境。作者在异地先">
@@ -340,7 +340,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-06-23 14:07:54" itemprop="dateModified" datetime="2018-06-23T14:07:54+09:00">2018-06-23</time>
+                <time title="修改时间：2018-06-23 16:17:33" itemprop="dateModified" datetime="2018-06-23T16:17:33+09:00">2018-06-23</time>
               
             
           </span>
@@ -399,6 +399,7 @@
 <ul>
 <li>在不同设备上配置github注意要先配置好ssh密钥</li>
 <li><code>themes</code>文件夹中的主题如果是直接<code>git clone</code>下来的，在上传前先删除相应主题目录下的<code>.git</code>文件夹，但仍不能取得相应主题文件夹的权限。<a href="http://blog.csdn.net/sinat_27088253/article/details/54314742" target="_blank" rel="noopener">解决方案</a>是将相应文件夹剪切到别处，执行一遍<code>add commit push</code>(在github端删除了该文件夹)，再在本地粘帖回来，执行<code>add commit push</code>三连，重新上传，即可。</li>
+<li>新配置的设备上，安装好sshkey后仍然提示<code>Host key verification failed.  fatal: Could not read from remote repository.</code>，则需要手动连接一次<code>ssh git@github.com</code>即可。</li>
 </ul>
 </blockquote>
 <h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">https://www.zhihu.com/question/21193762</a><br><a href="http://blog.csdn.net/Monkey_LZL/article/details/60870891" target="_blank" rel="noopener">http://blog.csdn.net/Monkey_LZL/article/details/60870891</a><br><a href="http://blog.csdn.net/sinat_27088253/article/details/54314742" target="_blank" rel="noopener">http://blog.csdn.net/sinat_27088253/article/details/54314742</a></p>
