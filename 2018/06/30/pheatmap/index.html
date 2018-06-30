@@ -114,7 +114,7 @@
 <meta property="og:site_name" content="SR-C">
 <meta property="og:description" content="使用pheatmap绘制热图">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-30T03:27:42.398Z">
+<meta property="og:updated_time" content="2018-06-30T05:10:24.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用pheatmap绘制热图">
 <meta name="twitter:description" content="使用pheatmap绘制热图">
@@ -324,7 +324,7 @@
                 
               
 
-              <time title="创建时间：2018-06-30 11:23:27 / 修改时间：12:27:42" itemprop="dateCreated datePublished" datetime="2018-06-30T11:23:27+09:00">2018-06-30</time>
+              <time title="创建时间：2018-06-30 11:23:27 / 修改时间：14:10:24" itemprop="dateCreated datePublished" datetime="2018-06-30T11:23:27+09:00">2018-06-30</time>
             
 
             
@@ -370,21 +370,21 @@
       
 
       
-        <p class="description">使用pheatmap绘制热图</p>
+        <p class="description">使用<code>pheatmap</code>绘制热图</p>
 
 <a id="more"></a>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">source</span>(<span class="string">"http://bioconductor.org/biocLite.R"</span>)</span><br><span class="line">biocLite(<span class="string">"pheatmap"</span>)</span><br><span class="line"><span class="keyword">library</span>(pheatmap)</span><br></pre></td></tr></table></figure>
 <h2 id="读入数据"><a href="#读入数据" class="headerlink" title="读入数据"></a>读入数据</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setwd(<span class="string">"path/to/my/workdir/"</span>)</span><br><span class="line">data &lt;- read.delim(<span class="string">"mydata.txt"</span>, header = <span class="literal">T</span>, sep = <span class="string">"\t"</span>, row.names = <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="开始绘制"><a href="#开始绘制" class="headerlink" title="开始绘制"></a>开始绘制</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pheatmap(as.matrix(data), color=colorRampPalette(c(<span class="string">"green"</span>,<span class="string">"black"</span>,<span class="string">"red"</span>))(<span class="number">100</span>), scale=<span class="string">'row'</span>, border_color=<span class="literal">NA</span>, width=<span class="number">9</span>, height=<span class="number">18</span>, fontsize=<span class="number">9</span>, fontsize_row=<span class="number">6</span>, filename=<span class="string">"heatmap.pdf"</span> )</span><br></pre></td></tr></table></figure>
 <h2 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scale=&apos;row&apos; #对矩阵进行标准化，以row或column方向进行标准化，默认参数为none</span><br><span class="line">cluster_row, cluster_col #默认对行列方向均进行聚类，设置为FALSE可不进行相应方向的聚类</span><br><span class="line">treeheight_row=0, treeheight_col=0 #不显示dendrogram</span><br><span class="line">border_color=NA #热图的每个小块间默认以灰色隔开，设置NA去掉border</span><br><span class="line">legend=FALSE #不显示legend</span><br><span class="line">color=colorRampPalette(rev(c(&quot;red&quot;,&quot;black&quot;,&quot;green&quot;)))(102) #设定cell的颜色</span><br></pre></td></tr></table></figure>
-<h3 id="将数值显示在热图的格子中"><a href="#将数值显示在热图的格子中" class="headerlink" title="将数值显示在热图的格子中"></a>将数值显示在热图的格子中</h3><p>number_format设置数值的格式，较常用的有”%.2f”（保留小数点后两位），”%.1e”（科学计数法显示，保留小数点后一位）</p>
-<p>number_color设置显示内容的颜色</p>
+<h3 id="将数值显示在热图的格子中"><a href="#将数值显示在热图的格子中" class="headerlink" title="将数值显示在热图的格子中"></a>将数值显示在热图的格子中</h3><p><code>number_format</code>设置数值的格式，较常用的有 “%.2f”（保留小数点后两位），”%.1e”（科学计数法显示，保留小数点后一位）</p>
+<p><code>number_color</code>设置显示内容的颜色</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pheatmap(test, display_numbers = TRUE, number_format = &quot;%.2f&quot;, number_color=&quot;purple&quot;) #&quot;%.2f&quot;表示保留小数点后两位</span><br><span class="line"># 在热图格子中展示文本</span><br><span class="line">pheatmap(test, display_numbers = TRUE)</span><br><span class="line">pheatmap(test, display_numbers = TRUE, number_format = &quot;\%.1e&quot;)</span><br><span class="line">pheatmap(test, display_numbers = matrix(ifelse(test &gt; 5, &quot;*&quot;, &quot;&quot;), nrow(test)))#还可以自己设定要显示的内容</span><br></pre></td></tr></table></figure>
 <h3 id="改变每个格子的大小"><a href="#改变每个格子的大小" class="headerlink" title="改变每个格子的大小"></a>改变每个格子的大小</h3><p>pheatmap(test, cellwidth = 15, cellheight = 12, main = “Example  heatmap”, fontsize = 8, filename = “test.pdf”)  </p>
-<p>#main可设置热图的标题，fontsize设置字体大小，filename可直接将热图存出，支持格式png, pdf, tiff, bmp,  jpeg，并且可以通过width, height设置图片的大小</p>
+<p><code>main</code>可设置热图的标题，<code>fontsize</code>设置字体大小，<code>filename</code>可直接将热图存出，支持格式png, pdf, tiff, bmp,  jpeg，并且可以通过<code>width</code>, <code>height</code>设置图片的大小</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pheatmap还可以显示行或列的分组信息，支持多种分组；</span><br><span class="line">annotation_col = data.frame(CellType = factor(rep(c(&quot;CT1&quot;, &quot;CT2&quot;), 5)), Time = 1:5)</span><br><span class="line">rownames(annotation_col) = paste(&quot;Test&quot;, 1:10, sep = &quot;&quot;)</span><br><span class="line"> </span><br><span class="line">annotation_row = data.frame(GeneClass = factor(rep(c(&quot;Path1&quot;, &quot;Path2&quot;, &quot;Path3&quot;), c(10, 4, 6))))</span><br><span class="line">rownames(annotation_row) = paste(&quot;Gene&quot;, 1:20, sep = &quot;&quot;)</span><br><span class="line"> </span><br><span class="line">pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#设定各个分组的颜色</span><br><span class="line">ann_colors = list(Time = c(&quot;white&quot;, &quot;firebrick&quot;), #连续数值型分组可设置成渐变</span><br><span class="line">    CellType = c(CT1 = &quot;#1B9E77&quot;, CT2 = &quot;#D95F02&quot;),</span><br><span class="line">    GeneClass = c(Path1 = &quot;#7570B3&quot;, Path2 = &quot;#E7298A&quot;, Path3 = &quot;#66A61E&quot;))</span><br><span class="line">pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row,</span><br><span class="line">         annotation_colors = ann_colors)</span><br></pre></td></tr></table></figure>
-<h3 id="根据特定条件将热图分隔开"><a href="#根据特定条件将热图分隔开" class="headerlink" title="根据特定条件将热图分隔开"></a>根据特定条件将热图分隔开</h3><p>cutree_rows, cutree_cols 根据行列的聚类数将热图分隔开<br>pheatmap(test, cutree_rows=3, cutree_cols=2)</p>
+<h3 id="根据特定条件将热图分隔开"><a href="#根据特定条件将热图分隔开" class="headerlink" title="根据特定条件将热图分隔开"></a>根据特定条件将热图分隔开</h3><p><code>cutree_rows</code>, <code>cutree_cols</code> 根据行列的聚类数将热图分隔开<br>pheatmap(test, cutree_rows=3, cutree_cols=2)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#还可以自己设定各个分组的颜色</span><br><span class="line">ann_colors = list(Time = c(&quot;white&quot;, &quot;firebrick&quot;), #连续数值型分组可设置成渐变</span><br><span class="line">    CellType = c(CT1 = &quot;#1B9E77&quot;, CT2 = &quot;#D95F02&quot;),</span><br><span class="line">    GeneClass = c(Path1 = &quot;#7570B3&quot;, Path2 = &quot;#E7298A&quot;, Path3 = &quot;#66A61E&quot;))</span><br><span class="line">pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row, annotation_colors = ann_colors)</span><br><span class="line">#还可以利用gaps_row, gaps_col自己设定要分隔开的位置</span><br><span class="line">pheatmap(test, annotation_col = annotation_col, cluster_rows = FALSE, gaps_row = c(10, 14), cutree_col = 2)</span><br></pre></td></tr></table></figure>
 <h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://blog.csdn.net/sinat_38163598/article/details/72770404" target="_blank" rel="noopener">https://blog.csdn.net/sinat_38163598/article/details/72770404</a></p>
 <p><a href="https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf" target="_blank" rel="noopener">https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf</a></p>
@@ -444,6 +444,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/30/awk/" rel="prev" title="使用awk提取文件内容">
+                使用awk提取文件内容 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -521,7 +525,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -556,7 +560,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
