@@ -106,25 +106,25 @@
 
 
 
-  <meta name="description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
-<meta name="keywords" content="debug">
+  <meta name="description" content="使用aria2下载百度云文件，绕过限速">
+<meta name="keywords" content="aria2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MECAT安装">
-<meta property="og:url" content="https://sr-c.github.io/2018/05/12/MECAT_install/index.html">
+<meta property="og:title" content="百度云的aria2下载">
+<meta property="og:url" content="https://sr-c.github.io/2018/07/04/aria2-baiduyun/index.html">
 <meta property="og:site_name" content="SR-C">
-<meta property="og:description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+<meta property="og:description" content="使用aria2下载百度云文件，绕过限速">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-23T05:03:17.635Z">
+<meta property="og:updated_time" content="2018-07-04T11:50:18.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MECAT安装">
-<meta name="twitter:description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+<meta name="twitter:title" content="百度云的aria2下载">
+<meta name="twitter:description" content="使用aria2下载百度云文件，绕过限速">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sr-c.github.io/2018/05/12/MECAT_install/"/>
+  <link rel="canonical" href="https://sr-c.github.io/2018/07/04/aria2-baiduyun/"/>
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>MECAT安装 | SR-C</title>
+  <title>百度云的aria2下载 | SR-C</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/05/12/MECAT_install/">
+    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/07/04/aria2-baiduyun/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sr-c">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MECAT安装
+          <h1 class="post-title" itemprop="name headline">百度云的aria2下载
               
             
           </h1>
@@ -324,24 +324,12 @@
                 
               
 
-              <time title="创建时间：2018-05-12 22:57:53" itemprop="dateCreated datePublished" datetime="2018-05-12T22:57:53+09:00">2018-05-12</time>
+              <time title="创建时间：2018-07-04 17:19:25 / 修改时间：20:50:18" itemprop="dateCreated datePublished" datetime="2018-07-04T17:19:25+09:00">2018-07-04</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-06-23 14:03:17" itemprop="dateModified" datetime="2018-06-23T14:03:17+09:00">2018-06-23</time>
               
             
           </span>
@@ -382,12 +370,20 @@
       
 
       
-        <p>MECAT依赖<code>HDF5</code>和<code>dextract</code>，README中推荐的安装方法，并不十分友好，记录如下。<br><a id="more"></a></p>
-<h2 id="安装HDF5"><a href="#安装HDF5" class="headerlink" title="安装HDF5"></a>安装HDF5</h2><p>HDF是比较成熟的一种库文件格式，目前流行的版本是HDF5，MECAT的README中为从源码编译安装，多次尝试，编译均告失败。好在发现HDF5官网提供CentOS6的已编译版本，直接解压即可<del>食</del>使用😀。</p>
-<h2 id="安装dextract"><a href="#安装dextract" class="headerlink" title="安装dextract"></a>安装dextract</h2><p>从PacificBiosciences的库中git下载源码，dextract官方并未给出安装说明，按照MECAT提供的<code>dextract_makefile</code>进行编译，出现了如下<code>undefined reference</code>错误。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">gcc -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing -I/Storage/data002/shurh/software/hdf5/include -L/Storage/data002/shurh/software/hdf5/lib -o dextract dextract.c DB.c QV.c -lhdf5 -lsz</span><br><span class="line">/tmp/ccXFKK1s.o: In <span class="keyword">function</span> `main<span class="string">':</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x135): undefined reference to `parse_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0x27c): undefined reference to `initBaxData<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x33a): undefined reference to `getBaxData'</span></span><br><span class="line">dextract.c:(.text.startup+0x35a): undefined reference to `nextSubread<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x36b): undefined reference to `nextSubread'</span></span><br><span class="line">dextract.c:(.text.startup+0x38c): undefined reference to `evaluate_bax_filter<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x538): undefined reference to `sam_open'</span></span><br><span class="line">dextract.c:(.text.startup+0x54e): undefined reference to `sam_header_process<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x58e): undefined reference to `sam_record_extract'</span></span><br><span class="line">dextract.c:(.text.startup+0x5a1): undefined reference to `SAM_EOF<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x5b4): undefined reference to `evaluate_bam_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0xc35): undefined reference to `sam_close<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0xfb0): undefined reference to `getBaxData'</span></span><br><span class="line">dextract.c:(.text.startup+0x1096): undefined reference to `sam_open<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x129f): undefined reference to `parse_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0x1430): undefined reference to `printBaxError<span class="string">'</span></span><br><span class="line"><span class="string">collect2: error: ld returned 1 exit status</span></span><br><span class="line"><span class="string">make: *** [dextract] Error 1</span></span><br></pre></td></tr></table></figure></p>
-<p>按照其他同志的踩坑，发觉<code>dextract_makefile</code>并不完善， 缺少几个源文件和库文件链接，修改第7行:<br>    ${CC} $(CFLAGS) -I$(HDF5_INCLUDE) -L$(HDF5_LIB) -o dextract dextract.c sam.c bax.c expr.c DB.c QV.c -lhdf5 -lz -lsz</p>
-<p>参考来源：<br><a href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.15-patch1/bin/linux-centos6-x86_64/hdf5-1.8.15-patch1-linux-centos6-x86_64-shared.tar.gz" target="_blank" rel="noopener">https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.15-patch1/bin/linux-centos6-x86_64/hdf5-1.8.15-patch1-linux-centos6-x86_64-shared.tar.gz</a><br><a href="https://github.com/xiaochuanle/MECAT/issues/19" target="_blank" rel="noopener">https://github.com/xiaochuanle/MECAT/issues/19</a></p>
+        <p class="description">使用aria2下载百度云文件，绕过限速</p>
 
+<a id="more"></a>
+<h2 id="下载aria2"><a href="#下载aria2" class="headerlink" title="下载aria2"></a>下载aria2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/aria2/aria2/releases/download/release-1.34.0/aria2-1.34.0.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=~/opt/aria2</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h2 id="浏览器附加组件"><a href="#浏览器附加组件" class="headerlink" title="浏览器附加组件"></a>浏览器附加组件</h2><p>Firefox <a href="https://addons.mozilla.org/zh-CN/firefox/addon/baidu-pan-exporter/" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/addon/baidu-pan-exporter/</a></p>
+<p>Chrome <a href="https://github.com/acgotaku/BaiduExporter" target="_blank" rel="noopener">https://github.com/acgotaku/BaiduExporter</a></p>
+<h2 id="aria2配置文件"><a href="#aria2配置文件" class="headerlink" title="aria2配置文件"></a>aria2配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir download</span><br><span class="line"><span class="built_in">cd</span> download</span><br><span class="line">touch aria2.session aria2.log</span><br><span class="line">vi aria2.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## '#'开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span></span><br><span class="line"><span class="comment">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 文件保存相关 ##</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span></span><br><span class="line">dir=~/download/</span><br><span class="line"><span class="comment"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span></span><br><span class="line">disk-cache=32M</span><br><span class="line"><span class="comment"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span></span><br><span class="line"><span class="comment"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span></span><br><span class="line"><span class="comment"># falloc和trunc则需要文件系统和内核支持</span></span><br><span class="line"><span class="comment"># NTFS建议使用falloc, EXT3/4建议trunc, MAC 下需要注释此项</span></span><br><span class="line">file-allocation=none</span><br><span class="line"><span class="comment"># 断点续传</span></span><br><span class="line"><span class="built_in">continue</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 下载连接相关 ##</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最大同时下载任务数, 运行时可修改, 默认:5</span></span><br><span class="line">max-concurrent-downloads=10</span><br><span class="line"><span class="comment"># 同一服务器连接数, 添加时可指定, 默认:1</span></span><br><span class="line">max-connection-per-server=5</span><br><span class="line"><span class="comment"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span></span><br><span class="line"><span class="comment"># 假定size=10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span></span><br><span class="line">min-split-size=10M</span><br><span class="line"><span class="comment"># 单个任务最大线程数, 添加时可指定, 默认:5</span></span><br><span class="line">split=20</span><br><span class="line"><span class="comment"># 整体下载速度限制, 运行时可修改, 默认:0</span></span><br><span class="line"><span class="comment">#max-overall-download-limit=0</span></span><br><span class="line"><span class="comment"># 单个任务下载速度限制, 默认:0</span></span><br><span class="line"><span class="comment">#max-download-limit=0</span></span><br></pre></td></tr></table></figure>
+<p>之后即可使用<code>aria2c --conf-path=&lt;PATH&gt;</code>启动，其中<code>PATH</code>必须为绝对路径。</p>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://github.com/acgotaku/BaiduExporter" target="_blank" rel="noopener">https://github.com/acgotaku/BaiduExporter</a></p>
+<p><a href="https://blog.csdn.net/gatieme/article/details/44782801" target="_blank" rel="noopener">https://blog.csdn.net/gatieme/article/details/44782801</a></p>
+<p><a href="http://www.bioinfo-scrounger.com/archives/543" target="_blank" rel="noopener">http://www.bioinfo-scrounger.com/archives/543</a></p>
+<hr>
       
     </div>
 
@@ -408,7 +404,7 @@
     <strong>本文作者： </strong>sr-c</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://sr-c.github.io/2018/05/12/MECAT_install/" title="MECAT安装">https://sr-c.github.io/2018/05/12/MECAT_install/</a>
+    <a href="https://sr-c.github.io/2018/07/04/aria2-baiduyun/" title="百度云的aria2下载">https://sr-c.github.io/2018/07/04/aria2-baiduyun/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -421,7 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/debug/" rel="tag"># debug</a>
+            <a href="/tags/aria2/" rel="tag"># aria2</a>
           
         </div>
       
@@ -434,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/TransDecoder-log/" rel="next" title="使用TransDecoder预测转录本的编码区域">
-                <i class="fa fa-chevron-left"></i> 使用TransDecoder预测转录本的编码区域
+              <a href="/2018/07/04/canu/" rel="next" title="canu的使用">
+                <i class="fa fa-chevron-left"></i> canu的使用
               </a>
             
           </div>
@@ -443,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/13/update_Hexo_and_NexT/" rel="prev" title="Hexo与NexT升级">
-                Hexo与NexT升级 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -631,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HDF5"><span class="nav-text">安装HDF5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装dextract"><span class="nav-text">安装dextract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载aria2"><span class="nav-text">下载aria2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装"><span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器附加组件"><span class="nav-text">浏览器附加组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aria2配置文件"><span class="nav-text">aria2配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
             
 
           </div>

@@ -106,25 +106,25 @@
 
 
 
-  <meta name="description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
-<meta name="keywords" content="debug">
+  <meta name="description" content="canu的使用指南">
+<meta name="keywords" content="canu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MECAT安装">
-<meta property="og:url" content="https://sr-c.github.io/2018/05/12/MECAT_install/index.html">
+<meta property="og:title" content="canu的使用">
+<meta property="og:url" content="https://sr-c.github.io/2018/07/04/canu/index.html">
 <meta property="og:site_name" content="SR-C">
-<meta property="og:description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+<meta property="og:description" content="canu的使用指南">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-23T05:03:17.635Z">
+<meta property="og:updated_time" content="2018-07-04T04:27:41.684Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MECAT安装">
-<meta name="twitter:description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+<meta name="twitter:title" content="canu的使用">
+<meta name="twitter:description" content="canu的使用指南">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sr-c.github.io/2018/05/12/MECAT_install/"/>
+  <link rel="canonical" href="https://sr-c.github.io/2018/07/04/canu/"/>
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>MECAT安装 | SR-C</title>
+  <title>canu的使用 | SR-C</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/05/12/MECAT_install/">
+    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/07/04/canu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sr-c">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MECAT安装
+          <h1 class="post-title" itemprop="name headline">canu的使用
               
             
           </h1>
@@ -324,24 +324,12 @@
                 
               
 
-              <time title="创建时间：2018-05-12 22:57:53" itemprop="dateCreated datePublished" datetime="2018-05-12T22:57:53+09:00">2018-05-12</time>
+              <time title="创建时间：2018-07-04 13:05:17 / 修改时间：13:27:41" itemprop="dateCreated datePublished" datetime="2018-07-04T13:05:17+09:00">2018-07-04</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-06-23 14:03:17" itemprop="dateModified" datetime="2018-06-23T14:03:17+09:00">2018-06-23</time>
               
             
           </span>
@@ -382,12 +370,25 @@
       
 
       
-        <p>MECAT依赖<code>HDF5</code>和<code>dextract</code>，README中推荐的安装方法，并不十分友好，记录如下。<br><a id="more"></a></p>
-<h2 id="安装HDF5"><a href="#安装HDF5" class="headerlink" title="安装HDF5"></a>安装HDF5</h2><p>HDF是比较成熟的一种库文件格式，目前流行的版本是HDF5，MECAT的README中为从源码编译安装，多次尝试，编译均告失败。好在发现HDF5官网提供CentOS6的已编译版本，直接解压即可<del>食</del>使用😀。</p>
-<h2 id="安装dextract"><a href="#安装dextract" class="headerlink" title="安装dextract"></a>安装dextract</h2><p>从PacificBiosciences的库中git下载源码，dextract官方并未给出安装说明，按照MECAT提供的<code>dextract_makefile</code>进行编译，出现了如下<code>undefined reference</code>错误。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">gcc -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing -I/Storage/data002/shurh/software/hdf5/include -L/Storage/data002/shurh/software/hdf5/lib -o dextract dextract.c DB.c QV.c -lhdf5 -lsz</span><br><span class="line">/tmp/ccXFKK1s.o: In <span class="keyword">function</span> `main<span class="string">':</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x135): undefined reference to `parse_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0x27c): undefined reference to `initBaxData<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x33a): undefined reference to `getBaxData'</span></span><br><span class="line">dextract.c:(.text.startup+0x35a): undefined reference to `nextSubread<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x36b): undefined reference to `nextSubread'</span></span><br><span class="line">dextract.c:(.text.startup+0x38c): undefined reference to `evaluate_bax_filter<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x538): undefined reference to `sam_open'</span></span><br><span class="line">dextract.c:(.text.startup+0x54e): undefined reference to `sam_header_process<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x58e): undefined reference to `sam_record_extract'</span></span><br><span class="line">dextract.c:(.text.startup+0x5a1): undefined reference to `SAM_EOF<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x5b4): undefined reference to `evaluate_bam_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0xc35): undefined reference to `sam_close<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0xfb0): undefined reference to `getBaxData'</span></span><br><span class="line">dextract.c:(.text.startup+0x1096): undefined reference to `sam_open<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x129f): undefined reference to `parse_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0x1430): undefined reference to `printBaxError<span class="string">'</span></span><br><span class="line"><span class="string">collect2: error: ld returned 1 exit status</span></span><br><span class="line"><span class="string">make: *** [dextract] Error 1</span></span><br></pre></td></tr></table></figure></p>
-<p>按照其他同志的踩坑，发觉<code>dextract_makefile</code>并不完善， 缺少几个源文件和库文件链接，修改第7行:<br>    ${CC} $(CFLAGS) -I$(HDF5_INCLUDE) -L$(HDF5_LIB) -o dextract dextract.c sam.c bax.c expr.c DB.c QV.c -lhdf5 -lz -lsz</p>
-<p>参考来源：<br><a href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.15-patch1/bin/linux-centos6-x86_64/hdf5-1.8.15-patch1-linux-centos6-x86_64-shared.tar.gz" target="_blank" rel="noopener">https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.15-patch1/bin/linux-centos6-x86_64/hdf5-1.8.15-patch1-linux-centos6-x86_64-shared.tar.gz</a><br><a href="https://github.com/xiaochuanle/MECAT/issues/19" target="_blank" rel="noopener">https://github.com/xiaochuanle/MECAT/issues/19</a></p>
+        <p class="description">canu的使用指南</p>
 
+<a id="more"></a>
+<h2 id="下载测试数据"><a href="#下载测试数据" class="headerlink" title="下载测试数据"></a>下载测试数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -o pacbio.fastq http://gembox.cbcb.umd.edu/mhap/raw/ecoli_p6_25x.filtered.fastq</span><br><span class="line">curl -L -o oxford.fasta http://nanopore.s3.climb.ac.uk/MAP006-PCR-1_2D_pass.fasta</span><br></pre></td></tr></table></figure>
+<h2 id="一步执行"><a href="#一步执行" class="headerlink" title="一步执行"></a>一步执行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">canu \</span><br><span class="line"> -p ecoli -d ecoli-pacbio \</span><br><span class="line"> genomeSize=4.8m \</span><br><span class="line"> -pacbio-raw pacbio.fastq</span><br></pre></td></tr></table></figure>
+<h2 id="canu可分步骤执行"><a href="#canu可分步骤执行" class="headerlink" title="canu可分步骤执行"></a>canu可分步骤执行</h2><h3 id="Correct"><a href="#Correct" class="headerlink" title="Correct"></a>Correct</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">canu -correct \</span><br><span class="line">  -p ecoli -d ecoli \</span><br><span class="line">  genomeSize=4.8m \</span><br><span class="line">  -pacbio-raw  pacbio.fastq</span><br></pre></td></tr></table></figure>
+<h3 id="Trim"><a href="#Trim" class="headerlink" title="Trim"></a>Trim</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">canu -trim \</span><br><span class="line">  -p ecoli -d ecoli \</span><br><span class="line">  genomeSize=4.8m \</span><br><span class="line">  -pacbio-corrected ecoli/ecoli.correctedReads.fasta.gz</span><br></pre></td></tr></table></figure>
+<h3 id="Assemble"><a href="#Assemble" class="headerlink" title="Assemble"></a>Assemble</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">canu -assemble \</span><br><span class="line">  -p ecoli -d ecoli-erate-0.039 \</span><br><span class="line">  genomeSize=4.8m \</span><br><span class="line">  correctedErrorRate=0.039 \</span><br><span class="line">  -pacbio-corrected ecoli/ecoli.trimmedReads.fasta.gz</span><br><span class="line"></span><br><span class="line">canu -assemble \</span><br><span class="line">  -p ecoli -d ecoli-erate-0.075 \</span><br><span class="line">  genomeSize=4.8m \</span><br><span class="line">  correctedErrorRate=0.075 \</span><br><span class="line">  -pacbio-corrected ecoli/ecoli.trimmedReads.fasta.gz</span><br></pre></td></tr></table></figure>
+<h2 id="应补足的参数"><a href="#应补足的参数" class="headerlink" title="应补足的参数"></a>应补足的参数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">useGrid=<span class="literal">false</span> \</span><br><span class="line"></span><br><span class="line">gnuplotImageFormat=canvas \ or</span><br><span class="line">gnuplotTested=<span class="literal">true</span> <span class="comment">##跳过gnuplot检测，在运行过程中不再使用gnuplot生成图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 如不添加上方gnuplot参数，则容易在程序启动前自检中出现如下报错</span></span><br><span class="line"><span class="comment">##（此问题似乎在1.7.1版本修复）</span></span><br><span class="line"><span class="comment">##ERROR:  Failed to detect a suitable output format for gnuplot.</span></span><br><span class="line"><span class="comment">##ERROR:  Looked for png, svg and gif, found none of them.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## java SE 8</span></span><br></pre></td></tr></table></figure>
+<h2 id="Consensus-Accuracy"><a href="#Consensus-Accuracy" class="headerlink" title="Consensus Accuracy"></a>Consensus Accuracy</h2><p>Canu consensus sequences are typically well above 99% identity for  PacBio datasets.  Nanopore accuracy varies depending on pore and  basecaller version, but is typically above 98% for recent data. Accuracy  can be improved by polishing the contigs with tools developed specifically for that task.   We recommend <a href="http://github.com/PacificBiosciences/GenomicConsensus" target="_blank" rel="noopener">Quiver</a> for PacBio and <a href="http://github.com/jts/nanopolish" target="_blank" rel="noopener">Nanopolish</a> for Oxford Nanpore data. When Illumina reads are available, <a href="http://www.broadinstitute.org/software/pilon/" target="_blank" rel="noopener">Pilon</a> can be used to polish either PacBio or Oxford Nanopore assemblies.</p>
+<p>For high coverage:</p>
+<blockquote>
+<ul>
+<li>For more than 60X coverage, decrease the allowed difference in overlaps (from 4.5% to 4.0% with <code>correctedErrorRate=0.040</code> for PacBio, from 14.4% to 12% with <code>correctedErrorRate=0.12</code> for Nanopore), so that only the better corrected reads are used. This is primarily an optimization for speed and generally does not change assembly continuity.</li>
+</ul>
+</blockquote>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="http://canu.readthedocs.io/en/latest/faq.html#what-parameters-should-i-use-for-my-reads" target="_blank" rel="noopener">http://canu.readthedocs.io/en/latest/faq.html#what-parameters-should-i-use-for-my-reads</a></p>
+<p><a href="https://github.com/marbl/canu/issues/939" target="_blank" rel="noopener">https://github.com/marbl/canu/issues/939</a></p>
+<hr>
       
     </div>
 
@@ -408,7 +409,7 @@
     <strong>本文作者： </strong>sr-c</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://sr-c.github.io/2018/05/12/MECAT_install/" title="MECAT安装">https://sr-c.github.io/2018/05/12/MECAT_install/</a>
+    <a href="https://sr-c.github.io/2018/07/04/canu/" title="canu的使用">https://sr-c.github.io/2018/07/04/canu/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -421,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/debug/" rel="tag"># debug</a>
+            <a href="/tags/canu/" rel="tag"># canu</a>
           
         </div>
       
@@ -434,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/TransDecoder-log/" rel="next" title="使用TransDecoder预测转录本的编码区域">
-                <i class="fa fa-chevron-left"></i> 使用TransDecoder预测转录本的编码区域
+              <a href="/2018/07/02/debug-zlib-h/" rel="next" title="解决zlib.h:no such file or directory">
+                <i class="fa fa-chevron-left"></i> 解决zlib.h:no such file or directory
               </a>
             
           </div>
@@ -444,8 +445,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/13/update_Hexo_and_NexT/" rel="prev" title="Hexo与NexT升级">
-                Hexo与NexT升级 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/04/aria2-baiduyun/" rel="prev" title="百度云的aria2下载">
+                百度云的aria2下载 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -631,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HDF5"><span class="nav-text">安装HDF5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装dextract"><span class="nav-text">安装dextract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载测试数据"><span class="nav-text">下载测试数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一步执行"><span class="nav-text">一步执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#canu可分步骤执行"><span class="nav-text">canu可分步骤执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Correct"><span class="nav-text">Correct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trim"><span class="nav-text">Trim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Assemble"><span class="nav-text">Assemble</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应补足的参数"><span class="nav-text">应补足的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consensus-Accuracy"><span class="nav-text">Consensus Accuracy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
             
 
           </div>

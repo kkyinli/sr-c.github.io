@@ -106,25 +106,25 @@
 
 
 
-  <meta name="description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+  <meta name="description" content="软件编译过程中zlib出错">
 <meta name="keywords" content="debug">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MECAT安装">
-<meta property="og:url" content="https://sr-c.github.io/2018/05/12/MECAT_install/index.html">
+<meta property="og:title" content="解决zlib.h:no such file or directory">
+<meta property="og:url" content="https://sr-c.github.io/2018/07/02/debug-zlib-h/index.html">
 <meta property="og:site_name" content="SR-C">
-<meta property="og:description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+<meta property="og:description" content="软件编译过程中zlib出错">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-23T05:03:17.635Z">
+<meta property="og:updated_time" content="2018-07-03T03:47:28.425Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MECAT安装">
-<meta name="twitter:description" content="MECAT依赖HDF5和dextract，README中推荐的安装方法，并不十分友好，记录如下。">
+<meta name="twitter:title" content="解决zlib.h:no such file or directory">
+<meta name="twitter:description" content="软件编译过程中zlib出错">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sr-c.github.io/2018/05/12/MECAT_install/"/>
+  <link rel="canonical" href="https://sr-c.github.io/2018/07/02/debug-zlib-h/"/>
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>MECAT安装 | SR-C</title>
+  <title>解决zlib.h:no such file or directory | SR-C</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/05/12/MECAT_install/">
+    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/07/02/debug-zlib-h/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sr-c">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MECAT安装
+          <h1 class="post-title" itemprop="name headline">解决zlib.h:no such file or directory
               
             
           </h1>
@@ -324,7 +324,7 @@
                 
               
 
-              <time title="创建时间：2018-05-12 22:57:53" itemprop="dateCreated datePublished" datetime="2018-05-12T22:57:53+09:00">2018-05-12</time>
+              <time title="创建时间：2018-07-02 23:11:48" itemprop="dateCreated datePublished" datetime="2018-07-02T23:11:48+09:00">2018-07-02</time>
             
 
             
@@ -341,7 +341,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-06-23 14:03:17" itemprop="dateModified" datetime="2018-06-23T14:03:17+09:00">2018-06-23</time>
+                <time title="修改时间：2018-07-03 12:47:28" itemprop="dateModified" datetime="2018-07-03T12:47:28+09:00">2018-07-03</time>
               
             
           </span>
@@ -382,12 +382,20 @@
       
 
       
-        <p>MECAT依赖<code>HDF5</code>和<code>dextract</code>，README中推荐的安装方法，并不十分友好，记录如下。<br><a id="more"></a></p>
-<h2 id="安装HDF5"><a href="#安装HDF5" class="headerlink" title="安装HDF5"></a>安装HDF5</h2><p>HDF是比较成熟的一种库文件格式，目前流行的版本是HDF5，MECAT的README中为从源码编译安装，多次尝试，编译均告失败。好在发现HDF5官网提供CentOS6的已编译版本，直接解压即可<del>食</del>使用😀。</p>
-<h2 id="安装dextract"><a href="#安装dextract" class="headerlink" title="安装dextract"></a>安装dextract</h2><p>从PacificBiosciences的库中git下载源码，dextract官方并未给出安装说明，按照MECAT提供的<code>dextract_makefile</code>进行编译，出现了如下<code>undefined reference</code>错误。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">gcc -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing -I/Storage/data002/shurh/software/hdf5/include -L/Storage/data002/shurh/software/hdf5/lib -o dextract dextract.c DB.c QV.c -lhdf5 -lsz</span><br><span class="line">/tmp/ccXFKK1s.o: In <span class="keyword">function</span> `main<span class="string">':</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x135): undefined reference to `parse_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0x27c): undefined reference to `initBaxData<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x33a): undefined reference to `getBaxData'</span></span><br><span class="line">dextract.c:(.text.startup+0x35a): undefined reference to `nextSubread<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x36b): undefined reference to `nextSubread'</span></span><br><span class="line">dextract.c:(.text.startup+0x38c): undefined reference to `evaluate_bax_filter<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x538): undefined reference to `sam_open'</span></span><br><span class="line">dextract.c:(.text.startup+0x54e): undefined reference to `sam_header_process<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x58e): undefined reference to `sam_record_extract'</span></span><br><span class="line">dextract.c:(.text.startup+0x5a1): undefined reference to `SAM_EOF<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x5b4): undefined reference to `evaluate_bam_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0xc35): undefined reference to `sam_close<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0xfb0): undefined reference to `getBaxData'</span></span><br><span class="line">dextract.c:(.text.startup+0x1096): undefined reference to `sam_open<span class="string">'</span></span><br><span class="line"><span class="string">dextract.c:(.text.startup+0x129f): undefined reference to `parse_filter'</span></span><br><span class="line">dextract.c:(.text.startup+0x1430): undefined reference to `printBaxError<span class="string">'</span></span><br><span class="line"><span class="string">collect2: error: ld returned 1 exit status</span></span><br><span class="line"><span class="string">make: *** [dextract] Error 1</span></span><br></pre></td></tr></table></figure></p>
-<p>按照其他同志的踩坑，发觉<code>dextract_makefile</code>并不完善， 缺少几个源文件和库文件链接，修改第7行:<br>    ${CC} $(CFLAGS) -I$(HDF5_INCLUDE) -L$(HDF5_LIB) -o dextract dextract.c sam.c bax.c expr.c DB.c QV.c -lhdf5 -lz -lsz</p>
-<p>参考来源：<br><a href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.15-patch1/bin/linux-centos6-x86_64/hdf5-1.8.15-patch1-linux-centos6-x86_64-shared.tar.gz" target="_blank" rel="noopener">https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.15-patch1/bin/linux-centos6-x86_64/hdf5-1.8.15-patch1-linux-centos6-x86_64-shared.tar.gz</a><br><a href="https://github.com/xiaochuanle/MECAT/issues/19" target="_blank" rel="noopener">https://github.com/xiaochuanle/MECAT/issues/19</a></p>
+        <p class="description">软件编译过程中zlib出错</p>
 
+<a id="more"></a>
+<h2 id="编译安装时报错"><a href="#编译安装时报错" class="headerlink" title="编译安装时报错"></a>编译安装时报错</h2><p><code>zlib.h:no such file or directory</code></p>
+<p>网络搜索出的解决方案大多是安装<code>zlib</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install zlib-devel</span><br></pre></td></tr></table></figure>
+<p>但实际上<code>zlib</code>已经安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm search zlib | grep zlib</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>zlib library files are placed into /usr/local/lib and zlib header files are placed into /usr/local/include, by default.</p>
+</blockquote>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>实际是本用户的conda环境影响了编译。<code>zlib</code>这样系统底层的库，系统并没有缺失。在<code>~/.bashrc</code>中屏蔽了conda的字段后，注销重新登陆，重新编译就pass了。</p>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://blog.csdn.net/u012724150/article/details/54836441" target="_blank" rel="noopener">https://blog.csdn.net/u012724150/article/details/54836441</a></p>
+<hr>
       
     </div>
 
@@ -408,7 +416,7 @@
     <strong>本文作者： </strong>sr-c</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://sr-c.github.io/2018/05/12/MECAT_install/" title="MECAT安装">https://sr-c.github.io/2018/05/12/MECAT_install/</a>
+    <a href="https://sr-c.github.io/2018/07/02/debug-zlib-h/" title="解决zlib.h:no such file or directory">https://sr-c.github.io/2018/07/02/debug-zlib-h/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -434,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/TransDecoder-log/" rel="next" title="使用TransDecoder预测转录本的编码区域">
-                <i class="fa fa-chevron-left"></i> 使用TransDecoder预测转录本的编码区域
+              <a href="/2018/06/30/awk/" rel="next" title="使用awk提取文件内容">
+                <i class="fa fa-chevron-left"></i> 使用awk提取文件内容
               </a>
             
           </div>
@@ -444,8 +452,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/13/update_Hexo_and_NexT/" rel="prev" title="Hexo与NexT升级">
-                Hexo与NexT升级 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/04/canu/" rel="prev" title="canu的使用">
+                canu的使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -631,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HDF5"><span class="nav-text">安装HDF5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装dextract"><span class="nav-text">安装dextract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装时报错"><span class="nav-text">编译安装时报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
             
 
           </div>
