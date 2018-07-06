@@ -106,25 +106,25 @@
 
 
 
-  <meta name="description" content="AWK 是一种使用方便且表现力很强的编程语言，方便进行文本的处理">
-<meta name="keywords" content="awk">
+  <meta name="description" content="在vim/vi中，可以使用一些命令进行文本操作，掌握之后能够高效地达成目标。">
+<meta name="keywords" content="vim,vi,unix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用awk提取文件内容">
-<meta property="og:url" content="https://sr-c.github.io/2018/06/30/awk/index.html">
+<meta property="og:title" content="vim使用的小技巧">
+<meta property="og:url" content="https://sr-c.github.io/2018/07/06/vim-tips/index.html">
 <meta property="og:site_name" content="SR-C">
-<meta property="og:description" content="AWK 是一种使用方便且表现力很强的编程语言，方便进行文本的处理">
+<meta property="og:description" content="在vim/vi中，可以使用一些命令进行文本操作，掌握之后能够高效地达成目标。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-30T05:05:53.440Z">
+<meta property="og:updated_time" content="2018-07-06T10:10:29.066Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用awk提取文件内容">
-<meta name="twitter:description" content="AWK 是一种使用方便且表现力很强的编程语言，方便进行文本的处理">
+<meta name="twitter:title" content="vim使用的小技巧">
+<meta name="twitter:description" content="在vim/vi中，可以使用一些命令进行文本操作，掌握之后能够高效地达成目标。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sr-c.github.io/2018/06/30/awk/"/>
+  <link rel="canonical" href="https://sr-c.github.io/2018/07/06/vim-tips/"/>
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>使用awk提取文件内容 | SR-C</title>
+  <title>vim使用的小技巧 | SR-C</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/06/30/awk/">
+    <link itemprop="mainEntityOfPage" href="https://sr-c.github.io/2018/07/06/vim-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sr-c">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用awk提取文件内容
+          <h1 class="post-title" itemprop="name headline">vim使用的小技巧
               
             
           </h1>
@@ -324,7 +324,7 @@
                 
               
 
-              <time title="创建时间：2018-06-30 13:11:16 / 修改时间：14:05:53" itemprop="dateCreated datePublished" datetime="2018-06-30T13:11:16+09:00">2018-06-30</time>
+              <time title="创建时间：2018-07-06 17:52:33 / 修改时间：19:10:29" itemprop="dateCreated datePublished" datetime="2018-07-06T17:52:33+09:00">2018-07-06</time>
             
 
             
@@ -370,35 +370,52 @@
       
 
       
-        <p class="description">AWK 是一种使用方便且表现力很强的编程语言，方便进行文本的处理</p>
+        <p class="description">在<code>vim</code>/<code>vi</code>中，可以使用一些命令进行文本操作，掌握之后能够高效地达成目标。</p>
 
 <a id="more"></a>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'program'</span> input files</span><br><span class="line">awk -f progfile optional list of files</span><br></pre></td></tr></table></figure>
-<p>简单的单行awk命令格式如下，其命令由一个单独的 模式–动作 语句 (pattern-action statement) 组成</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'[pattern] &#123;action&#125;'</span> &#123;filenames&#125;   <span class="comment"># 行匹配语句 awk '' 只能用单引号</span></span><br></pre></td></tr></table></figure>
-<h2 id="AWK程序的结构"><a href="#AWK程序的结构" class="headerlink" title="AWK程序的结构"></a>AWK程序的结构</h2><p>每一个<code>awk</code>程序都是由一个或多个<code>模式–动作</code> 语句组成的序列:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pattern &#123; action &#125;</span><br><span class="line">pattern &#123; action &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p><code>awk</code>的基本操作是在由输入行组成的序列中, 陆续地扫描每一行, 搜索可以被模式 匹配 (match) 的行。<br>“匹配” 的精确含义依赖于问题中的模式, 比如, 对于<code>$3 &gt; 0</code>, 意味着 “条件为真”. </p>
-<p>每一个输入行轮流被每一个模式测试。 每匹配一个模式, 对应的动作 (可能包含多个步骤) 就会执行。然后下一行被读取, 匹配重新开始。这个过程会一起持续到所有的输入被读取完毕为止。<br>上面的程序是模式与动作的典型例子. 程序</p>
+<h2 id="一、查找"><a href="#一、查找" class="headerlink" title="一、查找"></a>一、查找</h2><p><strong>查找命令</strong>          </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/pattern&lt;Enter&gt; ：向下查找pattern匹配字符串     </span><br><span class="line">?pattern&lt;Enter&gt;：向上查找pattern匹配字符串</span><br></pre></td></tr></table></figure>
+<p>使用了查找命令之后，使用如下两个键快速查找：<br>n：按照同一方向继续查找<br>N：按照反方向查找<br><strong>字符串匹配</strong><br><code>pattern</code>是需要匹配的字符串，例如： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/abc&lt;Enter&gt;      <span class="comment">#查找abc</span></span><br><span class="line">/ abc &lt;Enter&gt;    <span class="comment">#查找abc单词（注意前后的空格）</span></span><br></pre></td></tr></table></figure>
+<p>除此之外，<code>pattern</code>还可以使用一些特殊字符，包括（/、^、$、*、.），其中前三个这两个是vi与vim通用的，<code>/</code>为转义字符。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/^abc&lt;Enter&gt;    <span class="comment">#查找以abc开始的行 </span></span><br><span class="line">/<span class="built_in">test</span>$&lt;Enter&gt;    <span class="comment">#查找以abc结束的行 </span></span><br><span class="line">//^<span class="built_in">test</span>&lt;Enter&gt;    <span class="comment">#查找^tabc字符串</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、替换"><a href="#二、替换" class="headerlink" title="二、替换"></a>二、替换</h2><p><strong>基本替换</strong>      </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:s/vivian/sky/         <span class="comment">#替换当前行第一个 vivian 为 sky</span></span><br><span class="line">:s/vivian/sky/g     <span class="comment">#替换当前行所有 vivian 为 sky</span></span><br><span class="line">:n,<span class="variable">$s</span>/vivian/sky/     <span class="comment">#替换第 n 行开始到最后一行中每一行的第一个 vivian 为 sky</span></span><br><span class="line">:n,<span class="variable">$s</span>/vivian/sky/g     <span class="comment">#替换第 n 行开始到最后一行中每一行所有 vivian 为 sky</span></span><br><span class="line">（n 为数字，若 n 为 .，表示从当前行开始到最后一行）</span><br><span class="line">:%s/vivian/sky/        <span class="comment">#（等同于 :g/vivian/s//sky/） 替换每一行的第一个 vivian 为 sky</span></span><br><span class="line">:%s/vivian/sky/g    <span class="comment">#（等同于 :g/vivian/s//sky/g） 替换每一行中所有 vivian 为 sky</span></span><br></pre></td></tr></table></figure>
+<p> <strong>可以使用 <code>#</code>或<code>+</code> 作为分隔符，此时中间出现的 <code>/</code>不会作为分隔符</strong>      </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:s<span class="comment">#vivian/#sky/#         ##替换当前行第一个 vivian/ 为 sky/</span></span><br><span class="line">:%s+/oradata/apras/+/user01/apras1+  <span class="comment">##（使用+替换/）/oradata/apras/替换成/user01/apras1/</span></span><br></pre></td></tr></table></figure>
+<p><strong>删除文本中的<code>^M</code></strong>      </p>
 <blockquote>
-<p>$3 == 0 { print $1 }</p>
+<p>问题描述：对于换行，window下用回车换行（0A0D）来表示，linux下是回车（0A）来表示。这样，将window上的文件拷到unix上用时，总会有个<code>^M</code>，请写个用在unix下的过滤windows文件的换行符（0D）的shell或c程序。     </p>
 </blockquote>
-<p>由一条单独的<code>模式–动作</code>语句组成: 如果某行的第 3 个字段为 0, 那么它的第 1 个字段就会被打印出来.</p>
-<h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><p><code>awk</code>从它的输入中每次读取一行，将行分解为一个个的字段 (默认将字段看作是非空白字符组成的序列)。当前输入行的第一个字段叫作<code>$1</code>, 第二个是<code>$2</code>, 依次类推，一整行记为<code>$0</code>. 每行的字段数有可能不一样。</p>
-<p><code>NF</code>, 当前输入行的字段数量</p>
-<p><code>NR</code>, 到目前为止，读取到的行的数量</p>
-<h2 id="标准化输出"><a href="#标准化输出" class="headerlink" title="标准化输出"></a>标准化输出</h2><p><code>printf</code>语句具有形式</p>
+<p>使用命令：cat filename1 | tr -d “^V^M” &gt; newfile;<br>使用命令：sed -e “s/^V^M//” filename &gt; outputfilename<br>需要注意的是在1、2两种方法中，^V和^M指的是Ctrl+V和Ctrl+M。你必须要手工进行输入，而不是粘贴。<br>在<code>vi</code>中处理：首先使用<code>vi</code>打开文件，然后按ESC键，接着输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:%s/^V^M//</span><br><span class="line">:%s/^M$//g</span><br></pre></td></tr></table></figure>
+<p>如果上述方法无用，则正确的解决办法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tr -d “/r” &lt; src &gt;dest</span><br><span class="line">tr -d “/015″ dest</span><br><span class="line"></span><br><span class="line">strings A&gt;B</span><br></pre></td></tr></table></figure>
+<p><strong>其他用法</strong>      </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:s/str1/str2/          #用字符串 str2 替换行中首次出现的字符串 str1</span><br><span class="line">:s/str1/str2/g         #用字符串 str2 替换行中所有出现的字符串 str1</span><br><span class="line">:.,$ s/str1/str2/g     #用字符串 str2 替换正文当前行到末尾所有出现的字符串 str1</span><br><span class="line">:1,$ s/str1/str2/g     #用字符串 str2 替换正文中所有出现的字符串 str1</span><br><span class="line">:g/str1/s//str2/g      #功能同上</span><br></pre></td></tr></table></figure>
+<p>从上述替换命令可以看到：    </p>
 <blockquote>
-<p>printf(<em>format, value 1 , value 2 , … , value n</em> )</p>
-<p>{ printf(“total pay for %s is $%.2f\n”, $1, $2 * $3) }</p>
+<p>g 放在命令末尾，表示对指定行的搜索字符串的每次出现进行替换；不加 g，表示只对指定行的搜索字符串的首次出现进行替换；     </p>
+<p>g 放在命令开头，表示对正文中所有包含搜索字符串的行进行替换操作。     </p>
 </blockquote>
-<p><code>format</code>是一个字符串, 它包含按字面打印的文本, 中间散布着格式说明符, 格式说明符用于说明如何打印值. 一个格式说明符是一个 %, 后面跟着几个字符, 这些字符控制一个<code>value</code>的输出格式. 第一个格式说明符说明 <code>value 1</code>的输出格式, 第二个格式说明符说明 <code>value 2</code>的输出格式, 依次类推。 于是, 格式说明符的数量应该和被打印的 value 一样多。</p>
-<h3 id="格式说明符"><a href="#格式说明符" class="headerlink" title="格式说明符"></a>格式说明符</h3><p><code>%s</code>, 以字符串的形式打印</p>
-<p><code>%.2f</code> , 按照数值格式打印，且带有两位小数</p>
-<p><code>%-8s</code> , 将<em>value</em>以左对齐字符形式输出，占用8个字符的宽度</p>
-<p><code>%6.2f</code> , 将<em>value</em>以带有两位小数的数值形式输出，至少占用6个字符的宽度</p>
-<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p>The AWK Programming Language (Aho, Kernighan, Weinberger 著, 中文名: AWK 程序设计语言) </p>
-<p><a href="https://github.com/wuzhouhui/awk" target="_blank" rel="noopener">https://github.com/wuzhouhui/awk</a></p>
+<p>即：命令的开始可以添加影响的行，如果为g表示对所有行；命令的结尾可以使用g来表示是否对每一行的所有字符串都有影响。     </p>
+<h2 id="三、简单的vim正则表达式规则"><a href="#三、简单的vim正则表达式规则" class="headerlink" title="三、简单的vim正则表达式规则"></a>三、简单的vim正则表达式规则</h2><p>在<code>vim</code>中有四种表达式规则：     </p>
+<blockquote>
+<p>magic(/m)：除了$.*^之外其他元字符都要加反斜杠     </p>
+<p>nomagic(/M)：除了$^之外其他元字符都要加反斜杠     </p>
+<p>/v（即 very magic 之意）：任何元字符都不用加反斜杠     </p>
+<p>/V（即 very nomagic 之意）：任何元字符都必须加反斜杠     </p>
+</blockquote>
+<p><code>vim</code>默认使用<code>magic</code>设置，这个设置也可以在正则表达式中通过 <code>/m</code> <code>/M</code> <code>/v</code> <code>/V</code>开关临时切换。例如： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//m.*          # 查找任意字符串</span><br><span class="line">//M.*          # 查找字符串 .* （点号后面跟个星号）</span><br><span class="line"></span><br><span class="line">//v(a.c)&#123;3&#125;$   # 查找行尾的abcaccadc</span><br><span class="line">//m(a.c)&#123;3&#125;$   # 查找行尾的(abc)&#123;3&#125;</span><br><span class="line">//M(a.c)&#123;3&#125;$   # 查找行尾的(a.c)&#123;3&#125;</span><br><span class="line">//V(a.c)&#123;3&#125;$   # 查找任意位置的(a.c)&#123;3&#125;$</span><br></pre></td></tr></table></figure>
+<p>推荐使用默认的<code>magic</code>设置，在这种情况下，常用的匹配有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//&lt;abc          #查找以test开始的字符串</span><br><span class="line">/abc/&gt;          #查找以test结束的字符串</span><br><span class="line"></span><br><span class="line">$       匹配一行的结束</span><br><span class="line">^       匹配一行的开始</span><br><span class="line">//&lt;abc&lt;Enter&gt;:查找以abc开始的字符串</span><br><span class="line">/&gt;      匹配一个单词的结束，例如/abc/&gt;&lt;Enter&gt;:查找以abc结束的字符串</span><br><span class="line"></span><br><span class="line">*       匹配0或多次</span><br><span class="line">/+      匹配1或多次</span><br><span class="line">/=      匹配0或1次</span><br><span class="line">.       匹配除换行符以外任意字符</span><br><span class="line">/a      匹配一个字符</span><br><span class="line">/d      匹配任一数字</span><br><span class="line">/u      匹配任一大写字母</span><br><span class="line">[]      匹配范围，如t[abcd]s 匹配tas tbs tcs tds</span><br><span class="line">/&#123;&#125;     重复次数，如a/&#123;3,5&#125; 匹配3~5个a</span><br><span class="line">/( /)   定义重复组，如a/(xy/)b 匹配ab axyb axyxyb axyxyxyb ...</span><br><span class="line">/|      或，如：for/|bar 表示匹配for或者bar</span><br><span class="line"></span><br><span class="line">/%20c   匹配第20列</span><br><span class="line">/%20l   匹配第20行</span><br></pre></td></tr></table></figure>
+<p>关于正则表达式的详细信息，请参见参考文献。</p>
+<p><strong>参考文献：</strong>  </p>
+<p><a href="http://tech.idv2.com/2008/07/08/vim-regexp/" target="_blank" rel="noopener">vi中的正则表达式</a>   <a href="http://blog.chinaunix.net/u1/34252/showart_1075923.html" target="_blank" rel="noopener">vim运用正则表达式进行查找替换</a>   <a href="http://blog.csdn.net/aldenphy/archive/2009/03/24/4019486.aspx" target="_blank" rel="noopener">vi替换字符串</a> </p>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://blog.csdn.net/lanxinju/article/details/5731843" target="_blank" rel="noopener">https://blog.csdn.net/lanxinju/article/details/5731843</a></p>
+<p><a href="http://man.linuxde.net/vi" target="_blank" rel="noopener">http://man.linuxde.net/vi</a></p>
+<p><a href="https://harttle.land/2016/08/08/vim-search-in-file.html" target="_blank" rel="noopener">https://harttle.land/2016/08/08/vim-search-in-file.html</a></p>
 <hr>
       
     </div>
@@ -420,7 +437,7 @@
     <strong>本文作者： </strong>sr-c</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://sr-c.github.io/2018/06/30/awk/" title="使用awk提取文件内容">https://sr-c.github.io/2018/06/30/awk/</a>
+    <a href="https://sr-c.github.io/2018/07/06/vim-tips/" title="vim使用的小技巧">https://sr-c.github.io/2018/07/06/vim-tips/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -433,7 +450,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/awk/" rel="tag"># awk</a>
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+            <a href="/tags/vi/" rel="tag"># vi</a>
+          
+            <a href="/tags/unix/" rel="tag"># unix</a>
           
         </div>
       
@@ -446,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/30/pheatmap/" rel="next" title="使用pheatmap绘制热图">
-                <i class="fa fa-chevron-left"></i> 使用pheatmap绘制热图
+              <a href="/2018/07/04/aria2-baiduyun/" rel="next" title="百度云的aria2下载">
+                <i class="fa fa-chevron-left"></i> 百度云的aria2下载
               </a>
             
           </div>
@@ -455,10 +476,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/02/debug-zlib-h/" rel="prev" title="解决zlib.h:no such file or directory">
-                解决zlib.h:no such file or directory <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK程序的结构"><span class="nav-text">AWK程序的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建变量"><span class="nav-text">内建变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准化输出"><span class="nav-text">标准化输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式说明符"><span class="nav-text">格式说明符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、查找"><span class="nav-text">一、查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、替换"><span class="nav-text">二、替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、简单的vim正则表达式规则"><span class="nav-text">三、简单的vim正则表达式规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
             
 
           </div>
