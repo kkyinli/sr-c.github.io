@@ -114,7 +114,7 @@
 <meta property="og:site_name" content="SR-C">
 <meta property="og:description" content="普通用户手动配置perl模块可谓噩梦，选择一款趁手的工具很有必要。使用CPAN配置模块依然不够简单，目前尝试Perlberw与cpanminus的组合，较为满意。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-23T05:03:17.652Z">
+<meta property="og:updated_time" content="2018-07-16T09:25:14.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置perl模块">
 <meta name="twitter:description" content="普通用户手动配置perl模块可谓噩梦，选择一款趁手的工具很有必要。使用CPAN配置模块依然不够简单，目前尝试Perlberw与cpanminus的组合，较为满意。">
@@ -341,7 +341,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-06-23 14:03:17" itemprop="dateModified" datetime="2018-06-23T14:03:17+09:00">2018-06-23</time>
+                <time title="修改时间：2018-07-16 18:25:14" itemprop="dateModified" datetime="2018-07-16T18:25:14+09:00">2018-07-16</time>
               
             
           </span>
@@ -382,17 +382,30 @@
       
 
       
-        <p class="description">普通用户手动配置perl模块可谓噩梦，选择一款趁手的工具很有必要。使用CPAN配置模块依然不够简单，目前尝试Perlberw与cpanminus的组合，较为满意。</p>
+        <p class="description">普通用户手动配置perl模块可谓噩梦，选择一款趁手的工具很有必要。使用CPAN配置模块依然不够简单，目前尝试<code>Perlberw</code>与<code>cpanminus</code>的组合，较为满意。</p>
 
 <a id="more"></a>
-<h3 id="安装Perlberw"><a href="#安装Perlberw" class="headerlink" title="安装Perlberw"></a>安装Perlberw</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\curl -L https://install.perlbrew.pl | bash</span><br></pre></td></tr></table></figure>
+<h2 id="安装Perlberw"><a href="#安装Perlberw" class="headerlink" title="安装Perlberw"></a>安装Perlberw</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\curl -L https://install.perlbrew.pl | bash</span><br></pre></td></tr></table></figure>
 <p>安装完成后即可不需<code>sudo</code>安装模块，尝试不同版本的perl</p>
-<h3 id="使用cpanminus管理模块"><a href="#使用cpanminus管理模块" class="headerlink" title="使用cpanminus管理模块"></a>使用cpanminus管理模块</h3><p>使用perlberw安装cpanm</p>
+<h2 id="使用cpanminus管理模块"><a href="#使用cpanminus管理模块" class="headerlink" title="使用cpanminus管理模块"></a>使用cpanminus管理模块</h2><p>使用perlberw安装cpanm</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perlbrew install-cpanm</span><br></pre></td></tr></table></figure>
 <p>使用cpanm安装模块，不需要管理员权限</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cpanm Moose</span></span><br></pre></td></tr></table></figure>
 <p>使用 cpanm 安装模块，会将模块安装到目前使用版本 Perl 函数库<code>~/perl5/perlbrew/perls</code>中</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> tree ~/perl5/perlbrew/perls/perl-5.14.1/lib | head </span></span><br><span class="line">/Users/c9s/perl5/perlbrew/perls/perl-5.14.1/lib</span><br><span class="line">├── 5.14.1</span><br><span class="line">│   ├── AnyDBM_File.pm</span><br><span class="line">│   ├── App</span><br><span class="line">│   │   ├── Cpan.pm</span><br><span class="line">│   │   ├── Prove</span><br><span class="line">│   │   │   ├── State</span><br><span class="line">│   │   │   │   ├── Result</span><br><span class="line">│   │   │   │   │   └── Test.pm</span><br><span class="line">│   │   │   │   └── Result.pm</span><br></pre></td></tr></table></figure>
+<h2 id="使用local-lib"><a href="#使用local-lib" class="headerlink" title="使用local::lib"></a>使用local::lib</h2><p>安装了<code>perlbrew</code>与<code>cpanm</code>之后，直接使用<code>cpanm</code>安装软件会提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">!</span><br><span class="line">! Can<span class="string">'t write to /usr/local/share/perl5 and /usr/local/bin: Installing modules to /home/username/perl5</span></span><br><span class="line"><span class="string">! To turn off this warning, you have to do one of the following:</span></span><br><span class="line"><span class="string">!   - run me as a root or with --sudo option (to install to /usr/local/share/perl5 and /usr/local/bin)</span></span><br><span class="line"><span class="string">!   - Configure local::lib in your existing shell to set PERL_MM_OPT etc.</span></span><br><span class="line"><span class="string">!   - Install local::lib by running the following commands</span></span><br><span class="line"><span class="string">!</span></span><br><span class="line"><span class="string">!         cpanm --local-lib=~/perl5 local::lib &amp;&amp; eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)</span></span><br><span class="line"><span class="string">!</span></span><br></pre></td></tr></table></figure>
+<p>若忽略此条，则使得已通过<code>cpanm</code>安装的模块不能被正确调用。以<code>App::pmuninstall</code>为例，安装后，<code>pm-unistall</code>不出现在环境变量中。<code>local::lib</code>安装后即可正确调用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cpanm --<span class="built_in">local</span>-lib=~/perl5 <span class="built_in">local</span>::lib &amp;&amp; <span class="built_in">eval</span> $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>p.s. 在PBS集群中，perl的本地配置不能够直接传递到计算节点，使得PASA运行在需调用perl模块时仍然报错。</p>
+</blockquote>
+<h2 id="perl模块的卸载"><a href="#perl模块的卸载" class="headerlink" title="perl模块的卸载"></a>perl模块的卸载</h2><p>使用模块<code>App::pmuninstall</code>，可卸载其他模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cpanm App::pmuninstall</span><br></pre></td></tr></table></figure>
+<h3 id="手动确认卸载完成"><a href="#手动确认卸载完成" class="headerlink" title="手动确认卸载完成"></a>手动确认卸载完成</h3><p><code>perl -e &#39;print join &quot;\n&quot;,@INC&#39;</code>会print出所有模块和库的安装目录，到这些目录下找到对应的pm删除掉就可以了。 </p>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://perlbrew.pl/Perlbrew-%E4%B8%AD%E6%96%87%E7%B0%A1%E4%BB%8B.html" target="_blank" rel="noopener">https://perlbrew.pl/Perlbrew-%E4%B8%AD%E6%96%87%E7%B0%A1%E4%BB%8B.html</a></p>
+<p><a href="https://blog.csdn.net/u011450367/article/details/41522729" target="_blank" rel="noopener">https://blog.csdn.net/u011450367/article/details/41522729</a></p>
+<p><a href="https://www.howtoing.com/how-to-install-perlbrew-and-manage-multiple-versions-of-perl-5-on-centos-7" target="_blank" rel="noopener">https://www.howtoing.com/how-to-install-perlbrew-and-manage-multiple-versions-of-perl-5-on-centos-7</a></p>
 <hr>
       
     </div>
@@ -530,7 +543,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -577,7 +590,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -643,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Perlberw"><span class="nav-text">安装Perlberw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cpanminus管理模块"><span class="nav-text">使用cpanminus管理模块</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Perlberw"><span class="nav-text">安装Perlberw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用cpanminus管理模块"><span class="nav-text">使用cpanminus管理模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用local-lib"><span class="nav-text">使用local::lib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#perl模块的卸载"><span class="nav-text">perl模块的卸载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手动确认卸载完成"><span class="nav-text">手动确认卸载完成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
             
 
           </div>
