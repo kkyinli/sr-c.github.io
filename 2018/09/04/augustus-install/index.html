@@ -107,14 +107,14 @@
 
 
   <meta name="description" content="AUGUSTUS是应用非常普遍的基因预测软件，但是其安装依赖bamtools，而且需要很多root权限操作。因此，以普通用户权限安装augustus-3.3.1的经历记录如下。">
-<meta name="keywords" content="debug,bamtools,AUGUSTUS">
+<meta name="keywords" content="debug,AUGUSTUS,bamtools">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AUGUSTUS的普通用户安装">
 <meta property="og:url" content="https://sr-c.github.io/2018/09/04/augustus-install/index.html">
 <meta property="og:site_name" content="SR-C">
 <meta property="og:description" content="AUGUSTUS是应用非常普遍的基因预测软件，但是其安装依赖bamtools，而且需要很多root权限操作。因此，以普通用户权限安装augustus-3.3.1的经历记录如下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-05T03:40:17.734Z">
+<meta property="og:updated_time" content="2018-09-05T06:22:42.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AUGUSTUS的普通用户安装">
 <meta name="twitter:description" content="AUGUSTUS是应用非常普遍的基因预测软件，但是其安装依赖bamtools，而且需要很多root权限操作。因此，以普通用户权限安装augustus-3.3.1的经历记录如下。">
@@ -341,7 +341,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-05 12:40:17" itemprop="dateModified" datetime="2018-09-05T12:40:17+09:00">2018-09-05</time>
+                <time title="修改时间：2018-09-05 15:22:42" itemprop="dateModified" datetime="2018-09-05T15:22:42+09:00">2018-09-05</time>
               
             
           </span>
@@ -390,7 +390,7 @@
 <h2 id="安装bamtools"><a href="#安装bamtools" class="headerlink" title="安装bamtools"></a>安装bamtools</h2><h3 id="一键解决方案"><a href="#一键解决方案" class="headerlink" title="一键解决方案"></a>一键解决方案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install bamtools libbamtools-dev</span><br></pre></td></tr></table></figure>
 <p>但是，我们没有root权限，只能手动编译。</p>
 <h3 id="普通用户安装bamtools需要指定安装目录"><a href="#普通用户安装bamtools需要指定安装目录" class="headerlink" title="普通用户安装bamtools需要指定安装目录"></a>普通用户安装bamtools需要指定安装目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/pezmaster31/bamtools/archive/v2.4.1.tar.gz -O bamtools-2.4.1.tar.gz</span><br><span class="line">tar zxf bamtools-2.4.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> bamtools-2.4.1</span><br><span class="line">mkdir build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/your/path/to/bamtools ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>我目前的服务器环境比较复杂。CentOS 6.9，其默认的GCC版本是4.4.7，在编译很多软件时版本过低。目前将其升级到了7.3.0，但未保留原本的4.4.7环境。因此，在编译bamtools过程中有些挑剔软件版本。</p>
+<p>我目前的服务器环境比较复杂。CentOS 6.9，其默认的GCC版本是4.4.7，在编译很多软件时版本过低。目前将其升级到了7.3.0，但未保留原本的4.4.7环境。因此，在编译bamtools过程中有些<a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=811856" target="_blank" rel="noopener">挑剔软件版本</a>。</p>
 <p>对于≤2.4.0版本的bamtools，编译时都会出现如下报错。≥2.4.2版本的bamtools则要求cmake版本高于3.0，而本机的cmake版本是2.8.12.2。因此，在尽量少折腾的原则下，我们选择2.4.1版本。</p>
 <details><br>    <summary>▼筛选可用的bamtools版本</summary><br>    <h4> 编译bamtools-2.3.0 或2.4.0</h4><br>    <p> 出现如下错误，尚未发现解决方案 </p><br>    $HOME/software/bamtools-2.3.0/src/toolkit/bamtools_resolve.cpp:415:74: error: no matching function for call to ‘make_pair&lt;std::cxx11::string, bool&gt;(gnu_cxx::alloc_traitsstd::allocator&lt;std::cxx11::basic_string<char> &gt;::value_type&amp;, bool)’<br>         resolver.ReadNames.insert( make_pair&lt;string,bool&gt;(fields[1], true) ) ;<br>                                                                          ^<br>In file included from /usr/local/include/c++/7.3.0/bits/stl_algobase.h:64:0,<br>                 from /usr/local/include/c++/7.3.0/bits/char_traits.h:39,<br>                 from /usr/local/include/c++/7.3.0/string:40,<br>                 from $HOME/software/bamtools-2.3.0/src/toolkit/bamtools_tool.h:14,<br>                 from $HOME/software/bamtools-2.3.0/src/toolkit/bamtools_resolve.h:13,<br>                 from $HOME/software/bamtools-2.3.0/src/toolkit/bamtools_resolve.cpp:10:<br>    <h4> 编译bamtools-2.4.2</h4><br>    <p> 提示需求更高版本的CMake</p><br>    CMake Error at CMakeLists.txt:9 (cmake_minimum_required):<br>      CMake 3.0 or higher is required.  You are running version 2.8.12.2<br>        – Configuring incomplete, errors occurred!<br></char></details>
 
@@ -401,7 +401,7 @@
 <h2 id="编译bam2wig"><a href="#编译bam2wig" class="headerlink" title="编译bam2wig"></a>编译bam2wig</h2><p>编译好bamtools后，应当向系统目录拷贝一些库文件，但限于我们没有root权限，只能修改Makefile，手动指向这些库文件。</p>
 <h3 id="编译bam2wig依赖bcftools-htslib-samtools-tabix四款软件"><a href="#编译bam2wig依赖bcftools-htslib-samtools-tabix四款软件" class="headerlink" title="编译bam2wig依赖bcftools, htslib, samtools, tabix四款软件"></a>编译bam2wig依赖bcftools, htslib, samtools, tabix四款软件</h3><p>从其github站点，或<a href="http://www.htslib.org/download/" target="_blank" rel="noopener">官网</a>下载，解压后直接编译。其中，tabix已经并入了htslib</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/<span class="built_in">where</span>/to/install</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h3 id="修改bam2wig的Makefile，使其与手动编译上述软件配合"><a href="#修改bam2wig的Makefile，使其与手动编译上述软件配合" class="headerlink" title="修改bam2wig的Makefile，使其与手动编译上述软件配合"></a>修改<code>bam2wig</code>的Makefile，使其与手动编译上述软件配合</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SAMTOOLS=$(TOOLDIR)/samtools/</span></span><br><span class="line">SAMTOOLS=<span class="variable">$HOME</span>/software/samtools-1.9</span><br><span class="line"></span><br><span class="line"><span class="comment">#HTSLIB=$(TOOLDIR)/htslib/</span></span><br><span class="line">HTSLIB=<span class="variable">$HOME</span>/software/htslib-1.9</span><br><span class="line"></span><br><span class="line"><span class="comment"># BCFTOOLS=$(TOOLDIR)/bcftools/</span></span><br><span class="line">BCFTOOLS=<span class="variable">$HOME</span>/software/bcftools-1.9</span><br><span class="line"></span><br><span class="line"><span class="comment"># TABIX=$(TOOLDIR)/tabix/</span></span><br><span class="line">TABIX=<span class="variable">$HOME</span>/software/htslib-1.9</span><br></pre></td></tr></table></figure>
+<h3 id="修改bam2wig的Makefile，使其与上述软件配合"><a href="#修改bam2wig的Makefile，使其与上述软件配合" class="headerlink" title="修改bam2wig的Makefile，使其与上述软件配合"></a>修改bam2wig的Makefile，使其与上述软件配合</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SAMTOOLS=$(TOOLDIR)/samtools/</span></span><br><span class="line">SAMTOOLS=<span class="variable">$HOME</span>/software/samtools-1.9</span><br><span class="line"></span><br><span class="line"><span class="comment">#HTSLIB=$(TOOLDIR)/htslib/</span></span><br><span class="line">HTSLIB=<span class="variable">$HOME</span>/software/htslib-1.9</span><br><span class="line"></span><br><span class="line"><span class="comment"># BCFTOOLS=$(TOOLDIR)/bcftools/</span></span><br><span class="line">BCFTOOLS=<span class="variable">$HOME</span>/software/bcftools-1.9</span><br><span class="line"></span><br><span class="line"><span class="comment"># TABIX=$(TOOLDIR)/tabix/</span></span><br><span class="line">TABIX=<span class="variable">$HOME</span>/software/htslib-1.9</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意，此处的路径<code>$HOME/software/</code>其实是解压后的软件包编译的路径，并不是软件最终安装的路径。否则，会出现如下报错。</p>
 </blockquote>
@@ -452,9 +452,9 @@
           
             <a href="/tags/debug/" rel="tag"># debug</a>
           
-            <a href="/tags/bamtools/" rel="tag"># bamtools</a>
-          
             <a href="/tags/AUGUSTUS/" rel="tag"># AUGUSTUS</a>
+          
+            <a href="/tags/bamtools/" rel="tag"># bamtools</a>
           
         </div>
       
@@ -476,6 +476,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/06/study-notes-PH525x-Chapter0/" rel="prev" title="PH525x学习笔记Ⅰ">
+                PH525x学习笔记Ⅰ <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -553,7 +557,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -648,7 +652,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -714,7 +722,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接编译AUGUSTUS"><span class="nav-text">直接编译AUGUSTUS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装bamtools"><span class="nav-text">安装bamtools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一键解决方案"><span class="nav-text">一键解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通用户安装bamtools需要指定安装目录"><span class="nav-text">普通用户安装bamtools需要指定安装目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text"> 编译bamtools-2.3.0 或2.4.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text"> 编译bamtools-2.4.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译bamtools-2-4-1"><span class="nav-text">编译bamtools-2.4.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改bam2hints-与filterBam的Makefile，使其与手动编译的bamtools配合"><span class="nav-text">修改bam2hints 与filterBam的Makefile，使其与手动编译的bamtools配合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译bam2wig"><span class="nav-text">编译bam2wig</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译bam2wig依赖bcftools-htslib-samtools-tabix四款软件"><span class="nav-text">编译bam2wig依赖bcftools, htslib, samtools, tabix四款软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改bam2wig的Makefile，使其与手动编译上述软件配合"><span class="nav-text">修改bam2wig的Makefile，使其与手动编译上述软件配合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译bam2wig过程中报错"><span class="nav-text">编译bam2wig过程中报错</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再次编译AUGUSTUS"><span class="nav-text">再次编译AUGUSTUS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接编译AUGUSTUS"><span class="nav-text">直接编译AUGUSTUS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装bamtools"><span class="nav-text">安装bamtools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一键解决方案"><span class="nav-text">一键解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通用户安装bamtools需要指定安装目录"><span class="nav-text">普通用户安装bamtools需要指定安装目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text"> 编译bamtools-2.3.0 或2.4.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text"> 编译bamtools-2.4.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译bamtools-2-4-1"><span class="nav-text">编译bamtools-2.4.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改bam2hints-与filterBam的Makefile，使其与手动编译的bamtools配合"><span class="nav-text">修改bam2hints 与filterBam的Makefile，使其与手动编译的bamtools配合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译bam2wig"><span class="nav-text">编译bam2wig</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译bam2wig依赖bcftools-htslib-samtools-tabix四款软件"><span class="nav-text">编译bam2wig依赖bcftools, htslib, samtools, tabix四款软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改bam2wig的Makefile，使其与上述软件配合"><span class="nav-text">修改bam2wig的Makefile，使其与上述软件配合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译bam2wig过程中报错"><span class="nav-text">编译bam2wig过程中报错</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再次编译AUGUSTUS"><span class="nav-text">再次编译AUGUSTUS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考来源"><span class="nav-text">参考来源</span></a></li></ol></div>
             
 
           </div>
